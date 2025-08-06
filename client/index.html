@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>my-yt</title>
+  <link rel="stylesheet" href="/main.css">
+  <link rel="stylesheet" href="/normalize.css">
+  <meta name="mobile-web-app-capable" content="yes">
+  <base href="/">
+  <meta name="theme-color" content="#fff">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
+</head>
+<body>
+  <header>
+    <div class="flex space-between align-start p-1">
+      <a id="home-link" class="hide p-v-2" href="/">go back home</a></h1>
+      <div class="flex-1 header-spacer"></div>
+      <search-videos data-videos-container="videos-container"></search-videos>
+      <div class="flex-1 tar p-v-2">
+        <a href="/settings">Settings</a>
+        <a tabindex="-1" href="https://github.com/christian-fei/my-yt" target="_blank">📖</a>
+      </div>
+    </div>
+  </header>
+
+  <main></main>
+
+  <aside id="notifications-container"></aside>
+  <sse-connection></sse-connection>
+  
+  <details class="state">
+    <summary>state & logs <span class="count"></span><span class="indicator"></span></summary>
+    <pre class="lines"></pre>
+  </details>
+
+  <dialog id="summary">
+    <button id="close">X</button>
+    <div></div>
+  </dialog>
+
+  <template id="main-template">
+    <channels-list></channels-list>
+    <videos-container></videos-container>
+    <empty-state style="display:none"></empty-state>
+  </template>
+
+
+  <template id="settings-template">
+    <div id="settings" class="contain">
+      <div>
+        <h2>Settings </h2>
+      </div>
+      <br>
+      <add-channel-form></add-channel-form>
+      <br>
+      <upload-cookies-form></upload-cookies-form>
+      <br>
+      <video-quality-form></video-quality-form>
+      <br>
+      <manage-disk-space-form></manage-disk-space-form>
+      <br>
+      <transcode-videos-form></transcode-videos-form>
+      <br>
+      <form>
+        <div class="flex space-between">
+          <label for="show-thumbnails">
+            Show video thumbnails 
+          </label>
+          <input type="checkbox" id="show-thumbnails"/>
+        </div>
+      </form>
+      <br>
+      <form>
+        <div class="flex space-between">
+          <label for="show-big-player">
+            Show big video player 
+          </label>
+          <input type="checkbox" id="show-big-player"/>
+        </div>
+        <div><small>When playing a video inline, it takes up a bit more space</small></div>
+      </form>
+      <br>
+      <form>
+        <div class="flex space-between">
+          <label for="show-original-thumbnail">
+            Show original thumbnail (potentially clickbait) 
+          </label>
+          <input type="checkbox" id="show-original-thumbnail"/>
+        </div>
+        <div><small>Show the creators chosen thumbnail, or a neutral one based on the actual video frames</small></div>
+      </form>
+      <br>
+      <form>
+        <div class="flex space-between">
+          <label for="show-captions">
+            Show video captions
+          </label>
+          <input type="checkbox" id="show-captions"/>
+        </div>
+      </form>
+      <br>
+      <form>
+        <div class="flex space-between">
+          <label for="use-tldw-tube">
+            Use TLDW.tube for video summarization (opens externally)
+          </label>
+          <input type="checkbox" id="use-tldw-tube"/>
+        </div>
+      </form>
+      <br>
+      <excluded-terms-form></excluded-terms-form>
+      <br>
+      <manage-channels-form></manage-channels-form>
+      <br>
+      <br>
+      <br>
+    </div>
+  </template>
+
+  <template id="not-found-template">
+    <div id="not-found" class="flex space-between direction-col user-select-none">
+      <h1>404 Not Found</h1>
+      <p>The page you are looking for does not exist.</p>
+      <a href="/">Go back to home</a>
+      <div class="extra-big">👻</div>
+    </div>
+  </template>
+
+  <script type="module" src="/components/empty-state.js"></script>
+  <script type="module" src="/components/search-videos.js"></script>
+  <script type="module" src="/components/channels-list.js"></script>
+  <script type="module" src="/components/video-element.js"></script>
+  <script type="module" src="/components/sse-connection.js"></script>
+  <script type="module" src="/components/videos-container.js"></script>
+  <script type="module" src="/components/forms/add-channel-form.js"></script>
+  <script type="module" src="/components/forms/manage-channels-form.js"></script>
+  <script type="module" src="/components/forms/video-quality-form.js"></script>
+  <script type="module" src="/components/forms/manage-disk-space-form.js"></script>
+  <script type="module" src="/components/forms/transcode-videos-form.js"></script>
+  <script type="module" src="/components/forms/excluded-terms-form.js"></script>
+  <script type="module" src="/components/forms/upload-cookies-form.js"></script>
+  <script type="module" src="/main.js"></script>
+  <script type="module" src="/lib/router.js"></script>
+</body>
+</html>

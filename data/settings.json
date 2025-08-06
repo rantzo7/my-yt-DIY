@@ -1,0 +1,5 @@
+{
+  "videoQuality": 720,
+  "transcodeVideos": true,
+  "excludedTerms": []
+}
