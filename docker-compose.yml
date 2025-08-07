@@ -5,6 +5,7 @@ services:
     working_dir: /app
     volumes:
      - ./data:/app/data
+     - ./env/.env:/app/.env:ro   # 👈 Mount the host .env file into the container
     ports:
     - "3000:3000"
     command: npm start
