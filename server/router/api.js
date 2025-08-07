@@ -7,7 +7,7 @@ import { downloadVideo, extractIdFromUrl, isUnsupportedUrl, isYouTubeUrl } from 
 import { updateAndPersistVideosForChannel } from '../../lib/update-videos.js'
 
 const llmDefaults = {
-  model: 'meta-llama-3.1-8b-instruct',
+  model: 'gemini-2.5-pro',
   host: 'http://127.0.0.1:1234',
   apiKey: '',
   temperature: 0
