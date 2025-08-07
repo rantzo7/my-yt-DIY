@@ -1,28 +1,19 @@
 FROM node:20
 
-# Install dependencies
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
-        ffmpeg \
-        python3 \
-        python3-pip \
-        ca-certificates \
-        curl && \
-    pip install --upgrade yt-dlp && \
-    rm -rf /var/lib/apt/lists/*
-
-# Set work directory
+# Set working directory inside the container
 WORKDIR /app
 
-# Install app dependencies
+# Copy only package files first for caching
 COPY package*.json ./
+
+# Install Node.js dependencies
 RUN npm install
 
-# Copy app source
+# Copy the rest of the app code
 COPY . .
 
-# Expose app port
+# Expose the app port (change if needed)
 EXPOSE 3000
 
-# Start app
+# Start the app
 CMD ["node", "index.js"]
