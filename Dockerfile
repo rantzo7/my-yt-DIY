@@ -1,18 +1,23 @@
 FROM node:20
 
-# Set working directory inside the container
+# Install ffmpeg and yt-dlp (standalone binary)
+RUN apt-get update && \
+    apt-get install -y curl ffmpeg && \
+    curl -L https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp -o /usr/local/bin/yt-dlp && \
+    chmod a+rx /usr/local/bin/yt-dlp && \
+    rm -rf /var/lib/apt/lists/*
+
+# Set app directory
 WORKDIR /app
 
-# Copy only package files first for caching
+# Install node dependencies
 COPY package*.json ./
-
-# Install Node.js dependencies
 RUN npm install
 
-# Copy the rest of the app code
+# Copy all app files
 COPY . .
 
-# Expose the app port (change if needed)
+# Expose default app port
 EXPOSE 3000
 
 # Start the app
