@@ -9,7 +9,6 @@ import { updateAndPersistVideosForChannel } from '../../lib/update-videos.js'
 const llmDefaults = {
   model: 'meta-llama-3.1-8b-instruct',
   host: 'http://127.0.0.1:1234',
-  endpoint: '/v1/chat/completions',
   apiKey: '',
   temperature: 0
 }
@@ -17,9 +16,16 @@ const llmDefaults = {
 const llmSettings = {
   model: process.env.AI_MODEL ?? llmDefaults.model,
   host: process.env.AI_HOST ?? llmDefaults.host,
-  endpoint: process.env.AI_ENDPOINT ?? llmDefaults.endpoint,
   apiKey: process.env.AI_APIKEY ?? llmDefaults.apiKey,
   temperature: process.env.AI_TEMPERATURE ?? llmDefaults.temperature
+}
+
+// Dynamically set the endpoint based on the model for Gemini
+if (llmSettings.host.includes('generativelanguage.googleapis.com')) {
+  llmSettings.endpoint = `/v1beta/models/${llmSettings.model}:generateContent`
+} else {
+  // Default endpoint for other LLMs if needed, or handle specific cases
+  llmSettings.endpoint = '/v1/chat/completions'
 }
 
 export default function apiHandler (req, res, repo, connections = [], state = {}) {
