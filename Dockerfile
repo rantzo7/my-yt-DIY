@@ -1,20 +1,25 @@
 # Use Node.js base image
 FROM node:20
 
-# Set working directory
+# Install ffmpeg and python3-pip (for yt-dlp)
+RUN apt-get update && \
+    apt-get install -y ffmpeg python3-pip && \
+    pip install --upgrade yt-dlp && \
+    rm -rf /var/lib/apt/lists/*
+
+# Set workdir
 WORKDIR /app
 
-# Copy package.json and package-lock.json (if any)
+# Copy package files and install dependencies
 COPY package*.json ./
-
-# Install dependencies
 RUN npm install
 
-# Copy all remaining source code
+# Copy the rest of your project
 COPY . .
 
-# Expose your app port (example: 3000)
+# Expose the port your app uses
 EXPOSE 3000
 
-# Start the app
+# Start your app
 CMD ["node", "index.js"]
+
